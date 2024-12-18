@@ -1,5 +1,7 @@
 package com.miliancode.autofleet.service.impl;
 
+import com.miliancode.autofleet.dto.user.UserRegistrationRequestDto;
+import com.miliancode.autofleet.dto.user.UserResponseDto;
 import com.miliancode.autofleet.model.Agreement;
 import com.miliancode.autofleet.model.Reservation;
 import com.miliancode.autofleet.model.User;
@@ -13,12 +15,12 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Override
-    public User createUser(User user) {
+    public UserResponseDto createUser(UserRegistrationRequestDto dto) {
         return null;
     }
 
     @Override
-    public User updateUser(Long userId, User updatedUser) {
+    public UserResponseDto updateUser(Long userId, User updatedUser) {
         return null;
     }
 

@@ -33,21 +33,18 @@ public class SecurityConfig {
         return http
                 .cors().disable()
                 .csrf().disable()
-                .authorizeHttpRequests(
-                        auth -> auth
-                                .requestMatchers("/auth/**",
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/**")
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
+                .authorizeHttpRequests(auth -> auth
+                        // Permit static resources without authentication
+                        .requestMatchers("/styles/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                        // Allow the login, register, and related pages without JWT check
+                        .requestMatchers("/auth/**", "/login", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                        // Apply JWT authentication for all other requests
+                        .anyRequest().authenticated()
                 )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session for JWT
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
-                .sessionManagement(session
-                        -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class)
-                .userDetailsService(userDetailsService)
                 .build();
     }
 

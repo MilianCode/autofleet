@@ -14,8 +14,6 @@ public class Vehicle {
     private Transmission transmissionType;
     private PetrolType petrolType;
 
-    private FleetCompany fleetCompany;
-
     private boolean isDeleted;
 
     private enum Status {

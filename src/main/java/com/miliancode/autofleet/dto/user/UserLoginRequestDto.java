@@ -13,4 +13,9 @@ public class UserLoginRequestDto {
     @NotBlank
     @Length(min = 8, max = 50)
     private String password;
+
+    public UserLoginRequestDto(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }
